@@ -42,20 +42,33 @@ void loop()
       double distanceUpRight = ultraSonic(trigPin2, echoPin2);
       double distanceLeft = ultraSonic(trigPin3, echoPin3);
       double distanceRight = ultraSonic(trigPin4, echoPin4);
-      if(cmd == 's')
+      if(cmd == 's') // Scanning area 
       {
         //Serial.print("ultra upLeft: ");
         Serial.println(distanceUpLeft);
-        delay(100);
+        delay(20);
         //Serial.print("ultra upRight: ");
         Serial.println(distanceUpRight);
-        delay(100);
+        delay(20);
         //Serial.print("ultra left: ");
         Serial.println(distanceLeft);
-        delay(100);
+        delay(20);
         //Serial.print("ultra right: ");
         Serial.println(distanceRight);
-        delay(100);
+        delay(20);
+      }
+      
+      const int avoidDistance = 0.1; // 10cm avoid
+      if(distanceUpLeft < avoidDistance || distanceUpRight < avoidDistance)
+      {
+        if(distanceUpLeft < distanceUpRight) // if left is blocked
+        {
+          // turn right to avoid
+        }
+        else if(distanceUpLeft > distanceUpRight)
+        {
+          // turn left to avoid
+        }
       }
   }
 }
