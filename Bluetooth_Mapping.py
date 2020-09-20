@@ -1,16 +1,46 @@
 import serial
 import time
+import sys
+import signal
 
-print("Start")
-port="/dev/tty.HC-05" #This will be different for various devices and on windows it will probably be a COM port.
-bluetooth=serial.Serial(port, 9600)#Start communications with the bluetooth unit
-print("Connected")
-bluetooth.flushInput() #This gives the bluetooth a little kick
-for i in range(5): #send 5 groups of data to the bluetooth
-	print("Ping")
-	bluetooth.write(b"BOOP "+str.encode(str(i)))#These need to be bytes not unicode, plus a number
-	input_data=bluetooth.readline()#This reads the incoming data. In this particular example it will be the "Hello from Blue" line
-	print(input_data.decode())#These are bytes coming in so a decode is needed
-	time.sleep(0.1) #A pause between bursts
-bluetooth.close() #Otherwise the connection will remain open until a timeout which ties up the /dev/thingamabob
-print("Done")
+def signal_handler(signal, frame):
+  print("closing program")
+  SerialPort.close()
+  sys.exit(0)
+
+COM=input("Enter the COM Port\n")
+BAUD=input("Enter the Baudrate\n")
+
+SerialPort = serial.Serial(COM,BAUD,timeout=1)
+ultra = []
+
+while (1):
+  try:
+     OutgoingData='s'
+     SerialPort.write(bytes(OutgoingData,'utf-8'))
+  except KeyboardInterrupt:
+     print("Closing and exiting the program")
+     SerialPort.close()
+     sys.exit(0)
+
+  IncomingData1=SerialPort.readline()
+  if(IncomingData1):
+     ultra1 = (IncomingData1).decode('utf-8')
+     print(ultra1)
+
+  IncomingData2=SerialPort.readline()
+  if(IncomingData2):
+     ultra2 = (IncomingData2).decode('utf-8')
+     print(ultra2)
+
+  IncomingData3=SerialPort.readline()
+  if(IncomingData3):
+     ultra3 = (IncomingData3).decode('utf-8')
+     print(ultra3)
+
+  IncomingData4=SerialPort.readline()
+  if(IncomingData4):
+     ultra4 = (IncomingData4).decode('utf-8')
+     print(ultra4)
+
+  time.sleep(0.01)
