@@ -45,17 +45,23 @@ void loop()
       if(cmd == 's') // Scanning area 
       {
         //Serial.print("ultra upLeft: ");
-        Serial.println(distanceUpLeft);
-        delay(20);
-        //Serial.print("ultra upRight: ");
-        Serial.println(distanceUpRight);
-        delay(20);
-        //Serial.print("ultra left: ");
-        Serial.println(distanceLeft);
-        delay(20);
-        //Serial.print("ultra right: ");
+        Serial.print(distanceUpLeft);
+        Serial.print(",");
+        Serial.print(distanceUpRight);
+        Serial.print(",");
+        Serial.print(distanceLeft);
+        Serial.print(",");
         Serial.println(distanceRight);
         delay(20);
+        //Serial.print("ultra upRight: ");
+        //Serial.println(distanceUpRight);
+        //delay(20);
+        //Serial.print("ultra left: ");
+        //Serial.println(distanceLeft);
+        //delay(20);
+        //Serial.print("ultra right: ");
+        //Serial.println(distanceRight);
+        //delay(20);
       }
       
       const int avoidDistance = 0.1; // 10cm avoid
